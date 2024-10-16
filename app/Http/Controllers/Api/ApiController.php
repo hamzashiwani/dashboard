@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\ContactUs;
 use App\Models\Package;
 use App\Models\Country;
+use App\Models\Client;
 use App\Models\Transaction;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Storage;
 
 class ApiController extends Controller
 {
@@ -116,6 +118,80 @@ class ApiController extends Controller
                         // Creating user's account
                         $data    = ContactUs::create($userData);
                         $message = "Contact has been created successfully.";
+                        $error   = 200;
+                    } catch (Exception $e) {
+                        // if user is created so rollback it
+                        return response()->json([
+                            'statusCode' => 402,
+                            'message'    => $e->getMessage(),
+                            'data'       => json_decode('{}')
+                        ]);
+                    }
+                }
+            } else {
+                $data    = [];
+                $message = "Something went wrong, please try again later.";
+                $error   = 406;
+            }
+
+            $response['statusCode']            = $error;
+            $response['message']               = $message;
+            $response['data']                  = (!empty($data)) ? $data : [];
+            $response['data']                  = (!empty($data)) ? $data : json_decode('{}');
+
+
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'message'    => $e->getMessage(),
+                'data'       => json_decode('{}')
+            ]);
+        }
+    }
+
+
+    public function storeClient(Request $request)
+    {
+        try {
+            if (!empty($request)) {
+                $validator = Validator::make($request->all(), [
+                    'name'                => 'required|min:4',
+                ]);
+
+                if ($validator->fails()) {
+                    $error   = 201;
+                    $data    = [];
+                    $message = $validator->errors()->first();
+                } else {
+                    $userData['name']    = $request->name;
+                    $userData['dob'] = $request->dob;
+                    $userData['address']     = $request->address;
+                    $userData['postcode']     = $request->postcode;
+                    $userData['mobile_number']     = $request->mobile_number;
+                    $userData['email']     = $request->email;
+                    $userData['surgery_name']     = $request->surgery_name;
+                    $userData['contact_name']     = $request->contact_name;
+                    $userData['are_you_pregnant']     = $request->are_you_pregnant;
+                    $userData['any_allergies']     = $request->any_allergies;
+                    $userData['reciving_medical_treatment'] = $request->reciving_medical_treatment;
+                    $userData['pacemaker']     = $request->pacemaker;
+                    $userData['dnr']     = $request->dnr;
+                    $userData['blood_thinner']     = $request->blood_thinner;
+                    $userData['current_medications']     = $request->current_medications;
+                    $userData['date']     = $request->date;
+
+                    $image = $request->input('patient_signature');
+                    $image = str_replace('data:image/png;base64,', '', $image);
+                    $image = str_replace(' ', '+', $image);
+                    $imageName = time() . '.png'; // Or any other logic for generating image name
+                    Storage::disk('public')->put($imageName, base64_decode($image));
+                    $userData['patient_signature'] = $imageName; 
+
+                    try {
+                        // Creating user's account
+                        $data    = Client::create($userData);
+                        $message = "Client Form has been created successfully.";
                         $error   = 200;
                     } catch (Exception $e) {
                         // if user is created so rollback it
