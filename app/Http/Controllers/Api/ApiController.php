@@ -235,6 +235,7 @@ class ApiController extends Controller
                     $userData['blood_thinner']     = $request->blood_thinner;
                     $userData['current_medications']     = $request->current_medications;
                     $userData['date']     = $request->date;
+                    $userData['reason']     = $request->reason;
 
                     $image = $request->input('patient_signature');
                     $image = str_replace('data:image/png;base64,', '', $image);
