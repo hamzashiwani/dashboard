@@ -27,9 +27,9 @@
                                             <td>{!! $result->dob !!}</td>
                                             <td>{!! $result->created_at->format('d-m-Y H:i:s') !!}</td>
                                             <td>
-                                                <a href="{!! route('admin.client.show', $result->id) !!}"
+                                                <!-- <a href="{!! route('admin.client.show', $result->id) !!}"
                                                    class="btn btn-info btn-sm waves-effect waves-light"><i
-                                                        class="feather icon-search"></i></a>
+                                                        class="feather icon-search"></i></a> -->
                                                 <button type="button" class="btn btn-danger btn-sm waves-effect waves-light" onclick="deleteConfirmation({!! $result->id !!})"><i class="feather icon-trash"></i></button>
 
                                                 <form action="{!! URL::route('admin.client.destroy', $result->id) !!}" method="POST" id="deleteForm{!! $result->id !!}">
