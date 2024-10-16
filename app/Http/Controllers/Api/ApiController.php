@@ -7,6 +7,7 @@ use JWTAuth;
 use Stripe\Stripe;
 use App\Models\User;
 use App\Models\ContactUs;
+use App\Models\Log;
 use App\Models\Package;
 use App\Models\Country;
 use App\Models\Client;
@@ -118,6 +119,60 @@ class ApiController extends Controller
                         // Creating user's account
                         $data    = ContactUs::create($userData);
                         $message = "Contact has been created successfully.";
+                        $error   = 200;
+                    } catch (Exception $e) {
+                        // if user is created so rollback it
+                        return response()->json([
+                            'statusCode' => 402,
+                            'message'    => $e->getMessage(),
+                            'data'       => json_decode('{}')
+                        ]);
+                    }
+                }
+            } else {
+                $data    = [];
+                $message = "Something went wrong, please try again later.";
+                $error   = 406;
+            }
+
+            $response['statusCode']            = $error;
+            $response['message']               = $message;
+            $response['data']                  = (!empty($data)) ? $data : [];
+            $response['data']                  = (!empty($data)) ? $data : json_decode('{}');
+
+
+            return response()->json($response);
+        } catch (Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'message'    => $e->getMessage(),
+                'data'       => json_decode('{}')
+            ]);
+        }
+    }
+
+
+    public function storeLog(Request $request)
+    {
+        try {
+            if (!empty($request)) {
+                $validator = Validator::make($request->all(), [
+                    'title'                => 'required|min:4',
+                    'description'               => 'required',
+                ]);
+
+                if ($validator->fails()) {
+                    $error   = 201;
+                    $data    = [];
+                    $message = $validator->errors()->first();
+                } else {
+                    $userData['title']    = $request->title;
+                    $userData['description'] = $request->description;
+
+                    try {
+                        // Creating user's account
+                        $data    = Log::create($userData);
+                        $message = "Log has been created successfully.";
                         $error   = 200;
                     } catch (Exception $e) {
                         // if user is created so rollback it

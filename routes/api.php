@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('store-log', 'ApiController@storeLog');
 Route::post('store-client', 'ApiController@storeClient');
 Route::post('store-contact-us', 'ApiController@storeContact');
 Route::post('signup', 'ApiController@signup');
