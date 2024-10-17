@@ -15,7 +15,7 @@
                                     <thead>
                                     <tr>
                                         <th>Action</th>
-                                        <th>Module</th>
+                                        <th>Page Name</th>
                                         <th>Target Id</th>
                                         <th>Author</th>
                                         <th>Created At</th>
@@ -24,7 +24,8 @@
                                     </thead>
                                     <tbody>
                                     @foreach ($data as $key => $result)
-                                    @php $target = str_replace('wp_bookly_', ' ', $result['target'])@endphp
+                                    @php $target = str_replace('wp_bookly_', '', $result['target'])@endphp
+                                    @php $target = str_replace('_', ' ', $target)@endphp
                                         <tr>
                                             <td>{!! $result['action'] !!}</td>
                                             <td>{!! ucfirst($target) !!}</td>
