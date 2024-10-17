@@ -242,7 +242,13 @@ class ApiController extends Controller
                     $image = str_replace('data:image/png;base64,', '', $image);
                     $image = str_replace(' ', '+', $image);
                     $imageName = time() . '.png'; // Or any other logic for generating image name
-                    Storage::disk('public')->put($imageName, base64_decode($image));
+                    // Storage::disk('public')->put($imageName, base64_decode($image));
+                    $fileContents = base64_decode($image);
+                    $path = public_path('uploads/front'); 
+                    if (!file_exists($path)) {
+                        mkdir($path, 0755, true);
+                    }
+                    file_put_contents($path . '/' . $imageName, $fileContents);
                     $userData['patient_signature'] = $imageName; 
 
                     try {

@@ -14,7 +14,7 @@ class Client extends Model
     protected $appends=['image_url'];
     public function getImageUrlAttribute()
     {
-        return asset('storage/' . $this->patient_signature);
+        return asset('uploads/front/' . $this->patient_signature);
     }
 
     public function allContact()
