@@ -10,4 +10,17 @@ class Log extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function allContact()
+    {
+        return self::orderBy('id','DESC')->get();
+    }
+    public function findContact($id)
+    {
+        return self::find($id);
+    }
+    public function deleteContact($id)
+    {
+        return self::findOrFail($id)->delete();
+    }
 }

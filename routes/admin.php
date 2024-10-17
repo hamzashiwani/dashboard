@@ -61,6 +61,7 @@ Route::name('admin.')->group(
         Route::resource('testimonial', 'TestimonialController');
         Route::resource('contact-us', 'ContactUsController');
         Route::resource('client', 'ClientController');
+        Route::resource('log', 'LogController');
         Route::resource('newsletters', 'NewsLettersController');
         Route::resource('users', 'UserController');
         Route::post('upload-image', [

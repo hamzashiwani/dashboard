@@ -23,62 +23,20 @@
                                 <div class="table-responsive">
                                     <div class="row" style="width: 100%;">
                                         <div class="col-6">
-                                            <p><h5>Name: </h5>{!! $data->name !!}</p>
+                                            <p><h5>First Name: </h5>{!! $data->first_name !!}</p>
                                         </div>
                                         <div class="col-6">
-                                            <p><h5>DOB: </h5>{!! $data->dob !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>Address: </h5>{!! $data->address !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>PostCode: </h5>{!! $data->postcode !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>Mobile Number: </h5>{!! $data->mobile_number !!}</p>
+                                            <p><h5>Last Name: </h5>{!! $data->last_name !!}</p>
                                         </div>
                                         <div class="col-6">
                                             <p><h5>Email: </h5>{!! $data->email !!}</p>
                                         </div>
                                         <div class="col-6">
-                                            <p><h5>Are You Pregnant: </h5>{!! $data->are_you_pregnant !!}</p>
+                                            <p><h5>Phone: </h5>{!! $data->phone !!}</p>
                                         </div>
                                         <div class="col-6">
-                                            <p><h5>Surgery Name: </h5>{!! $data->surgery_name !!}</p>
+                                            <p><h5>Message: </h5>{!! $data->message !!}</p>
                                         </div>
-                                        <div class="col-6">
-                                            <p><h5>Contact Name: </h5>{!! $data->contact_name !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>Any Allergies: </h5>{!! $data->any_allergies !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>Reciving Medical Treatment: </h5>{!! $data->reciving_medical_treatment !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>PaceMaker: </h5>{!! $data->pacemaker !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>DNR: </h5>{!! $data->dnr !!}</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p><h5>Blood Thinner: </h5>{!! $data->blood_thinner !!}</p>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <p><h5>Current Medications: </h5>{!! $data->current_medications !!}</p>
-                                        </div>
-
-                                        <div class="col-6">
-                                            <p><h5>Date: </h5>{!! $data->date !!}</p>
-                                        </div>
-                                        
-                                        <div class="col-6">
-                                            <p><h5>Image: </h5>
-                                            <td><img src="{{$data->image_url}}" height="50px;"></td>
-                                                </p>
-                                        </div>
-
                                         <div class="col-6">
                                             <p><h5>Created At: </h5>{!! $data->created_at->diffForHumans() !!}</p>
                                         </div>

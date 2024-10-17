@@ -168,6 +168,7 @@ class ApiController extends Controller
                 } else {
                     $userData['title']    = $request->title;
                     $userData['description'] = $request->description;
+                    $userData['user_id'] = $request->user_id;
 
                     try {
                         // Creating user's account
