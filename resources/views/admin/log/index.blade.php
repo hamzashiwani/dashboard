@@ -14,29 +14,23 @@
                                 <table class="table table-striped dataex-html5-selectors">
                                     <thead>
                                     <tr>
-                                        <th>Title</th>
-                                        <th>Description</th>
+                                        <th>Action</th>
+                                        <th>Module</th>
+                                        <th>Target Id</th>
+                                        <th>Author</th>
                                         <th>Created At</th>
                                         <!-- <th>Actions</th> -->
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach ($data as $key => $result)
+                                    @php $target = str_replace('wp_bookly_', ' ', $result['target'])@endphp
                                         <tr>
-                                            <td>{!! $result->title !!}</td>
-                                            <td>{!! $result->description !!}</td>
-                                            <td>{!! $result->created_at->format('d-m-Y H:i:s') !!}</td>
-                                            <!-- <td>
-                                                <a href="{!! route('admin.contact-us.show', $result->id) !!}"
-                                                   class="btn btn-info btn-sm waves-effect waves-light"><i
-                                                        class="feather icon-search"></i></a>
-                                                <button type="button" class="btn btn-danger btn-sm waves-effect waves-light" onclick="deleteConfirmation({!! $result->id !!})"><i class="feather icon-trash"></i></button>
-
-                                                <form action="{!! URL::route('admin.contact-us.destroy', $result->id) !!}" method="POST" id="deleteForm{!! $result->id !!}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                </form>
-                                            </td> -->
+                                            <td>{!! $result['action'] !!}</td>
+                                            <td>{!! ucfirst($target) !!}</td>
+                                            <td>{!! $result['target_id'] !!}</td>
+                                            <td>{!! $result['author'] !!}</td>
+                                            <td>{!! $result['created_at'] !!}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>

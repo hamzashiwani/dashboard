@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Controller;
-use App\Models\Log;
 use Illuminate\Http\Request;
 
 class LogController extends Controller
@@ -14,10 +13,9 @@ class LogController extends Controller
      *
      * @return void
      */
-    public function __construct(Log $contact_us)
+    public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->contact_us = $contact_us;
     }
 
     /**
@@ -28,7 +26,21 @@ class LogController extends Controller
     public function index()
     {
         try{
-            $data = $this->contact_us->allContact();
+            $url = 'https://andrea.thecodifiedlab.co.uk/wp-json/custom/v1/bookly-logs';
+
+            $ch = curl_init($url);
+
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true); // Return the response as a string
+            curl_setopt($ch, CURLOPT_HTTPGET, true); // Specify the request type as GET
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                echo 'cURL error: ' . curl_error($ch);
+            } else {
+                $data = json_decode($response, true); // Output the response data
+            }
+
+            curl_close($ch);
             return view('admin.log.index', compact('data'));
         } catch (\Exception $e) {
             session()->flash('error', $e->getMessage());
