@@ -74,7 +74,7 @@
                                         </div>
                                         
                                         <div class="col-6">
-                                            <p><h5>Image: </h5>
+                                            <p><h5>Signature: </h5>
                                             <td><img src="{{$data->image_url}}" height="50px;"></td>
                                                 </p>
                                         </div>
